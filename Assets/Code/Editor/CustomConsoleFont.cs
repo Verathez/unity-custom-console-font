@@ -5,10 +5,24 @@ namespace UnityEditor.Extensions {
     public static class CustomConsoleFont {
         #region NESTED CLASSES
         private static class PrefKeys {
-            public const string         Enabled             = "ConsoleFont.Enabled";
-            public const string         FontGUID            = "ConsoleFont.GUID";
-            public const string         FontSize            = "ConsoleFont.Size";
-            public const string         ValidationFrequency = "ConsoleFont.ValidationFrequency";
+            private const string    _Enabled                = "ConsoleFont.Enabled";
+            private const string    _FontGUID               = "ConsoleFont.GUID";
+            private const string    _FontSize               = "ConsoleFont.Size";
+            private const string    _ValidationFrequency    = "ConsoleFont.ValidationFrequency";
+            
+            private static string   _KeyPrefix              = string.Empty;
+            private static string KeyPrefix {
+                get {
+                    if (string.IsNullOrEmpty(_KeyPrefix))
+                        _KeyPrefix = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetDirectoryName(Application.dataPath)) + ".";
+                    return _KeyPrefix;
+                }
+            }
+            
+            public static string Enabled { get { return KeyPrefix + _Enabled; } }
+            public static string FontGUID { get { return KeyPrefix + _FontGUID; } }
+            public static string FontSize { get { return KeyPrefix + _FontSize; } }
+            public static string ValidationFrequency{ get { return KeyPrefix + _ValidationFrequency; } }
         }
         #endregion
 
